@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BlogDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Categorie">
+    <Key>
+      <PropertyRef Name="CategorieID" />
+    </Key>
+    <Property Name="CategorieID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Titre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Publications" Relationship="Self.FK_Publication_Categorie" FromRole="Categorie" ToRole="Publication" />
+  </EntityType>
+  <EntityType Name="Publication">
+    <Key>
+      <PropertyRef Name="PublicationID" />
+    </Key>
+    <Property Name="PublicationID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Titre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DatePublication" Type="DateTime" Precision="0" />
+    <Property Name="Contenu" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CategorieID" Type="Int64" />
+    <NavigationProperty Name="Categorie" Relationship="Self.FK_Publication_Categorie" FromRole="Publication" ToRole="Categorie" />
+  </EntityType>
+  <Association Name="FK_Publication_Categorie">
+    <End Role="Categorie" Type="Self.Categorie" Multiplicity="0..1" />
+    <End Role="Publication" Type="Self.Publication" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorie">
+        <PropertyRef Name="CategorieID" />
+      </Principal>
+      <Dependent Role="Publication">
+        <PropertyRef Name="CategorieID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BDModel" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="Self.Categorie" />
+    <EntitySet Name="Publications" EntityType="Self.Publication" />
+    <AssociationSet Name="FK_Publication_Categorie" Association="Self.FK_Publication_Categorie">
+      <End Role="Categorie" EntitySet="Categories" />
+      <End Role="Publication" EntitySet="Publications" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,37 @@
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="service.formData"
+  (submit)="onSubmit(form)"
+>
+  <input
+    type="hidden"
+    name="CategorieID"
+    #CategorieID="ngModel"
+    [(ngModel)]="service.formData.CategorieID"
+  />
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Titre</label>
+        <div class="input-group">
+          <input
+            name="Titre"
+            #Titre="ngModel"
+            [(ngModel)]="service.formData.Titre"
+            class="form-control"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark">
+      <i class="fa fa-database"></i> Submit
+    </button>
+    <a class="btn btn-outline-dark ml-1" routerLink="/blog"
+      ><i class="fa fa-table"></i> Acceuil</a
+    >
+  </div>
+</form>

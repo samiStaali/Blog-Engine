@@ -1,0 +1,92 @@
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="service.formData"
+  (submit)="onSubmit(form)"
+>
+  <input
+    type="hidden"
+    name="PublicationID"
+    #PublicationID="ngModel"
+    [(ngModel)]="service.formData.PublicationID"
+  />
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Titre</label>
+        <div class="input-group">
+          <input
+            name="Titre"
+            #Titre="ngModel"
+            [(ngModel)]="service.formData.Titre"
+            class="form-control"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Catégorie</label>
+    <select
+      required
+      name="CategorieID"
+      #CategorieID="ngModel"
+      [(ngModel)]="service.formData.CategorieID"
+      class="form-control"
+      [class.is-invalid]="!isValid && service.formData.CategorieID == 0"
+    >
+      <option value="0">-Select-</option>
+      <option *ngFor="let item of categorieList" value="{{ item.CategorieID }}">
+        {{ item.Titre }}
+      </option>
+    </select>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Date de publication</label>
+        <div class="input-group">
+          <input
+            name="DatePublication"
+            #DatePublication="ngModel"
+            [(ngModel)]="service.formData.DatePublication"
+            matInput
+            [matDatepicker]="picker"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Contenu</label>
+        <div class="input-group">
+          <textarea
+            name="Contenu"
+            #Contenu="ngModel"
+            [(ngModel)]="service.formData.Contenu"
+            class="form-control"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark">
+      <i class="fa fa-database"></i> Submit
+    </button>
+    <a class="btn btn-outline-dark ml-1" routerLink="/blog"
+      ><i class="fa fa-table"></i> Acceuil</a
+    >
+  </div>
+</form>
