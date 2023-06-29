@@ -12,6 +12,7 @@ import { RetourApi } from "src/app/shared/retourApi.model";
 })
 export class CategorieComponent implements OnInit {
   isValid: boolean = true;
+  typeMiseAJour: string = "Ajouter";
   retour: RetourApi;
   constructor(
     private service: CategorieService,
@@ -23,7 +24,10 @@ export class CategorieComponent implements OnInit {
 
   ngOnInit() {
     let categorieID = this.currentRoute.snapshot.paramMap.get("id");
-    if (categorieID == null) this.resetForm();
+    if (categorieID == null){
+     this.resetForm();
+     this.typeMiseAJour = "Modifier";
+    }
     else {
       this.service.getCategorieByID(parseInt(categorieID)).then((res) => {
         this.service.formData = res;

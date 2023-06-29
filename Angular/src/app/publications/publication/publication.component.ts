@@ -17,6 +17,8 @@ export class PublicationComponent implements OnInit {
   categorieList: Categorie[];
   isValid: boolean = true;
   retour: RetourApi;
+  typeMiseAJour: string = "Ajouter";
+
   constructor(
     private service: PublicationService,
     private categorieService: CategorieService,
@@ -28,7 +30,10 @@ export class PublicationComponent implements OnInit {
 
   ngOnInit() {
     let PublicationID = this.currentRoute.snapshot.paramMap.get("id");
-    if (PublicationID == null) this.resetForm();
+    if (PublicationID == null){
+    this.resetForm();
+    this.typeMiseAJour = "Modifier";
+    }
     else {
       this.service.getPublicationByID(parseInt(PublicationID)).then((res) => {
         this.service.formData = res;
