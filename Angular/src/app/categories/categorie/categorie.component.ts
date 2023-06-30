@@ -24,11 +24,9 @@ export class CategorieComponent implements OnInit {
 
   ngOnInit() {
     let categorieID = this.currentRoute.snapshot.paramMap.get("id");
-    if (categorieID == null){
-     this.resetForm();
-     this.typeMiseAJour = "Modifier";
-    }
+    if (categorieID == null) this.resetForm();
     else {
+      this.typeMiseAJour = "Modifier";
       this.service.getCategorieByID(parseInt(categorieID)).then((res) => {
         this.service.formData = res;
       });
