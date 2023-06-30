@@ -30,11 +30,9 @@ export class PublicationComponent implements OnInit {
 
   ngOnInit() {
     let PublicationID = this.currentRoute.snapshot.paramMap.get("id");
-    if (PublicationID == null){
-    this.resetForm();
-    this.typeMiseAJour = "Modifier";
-    }
+    if (PublicationID == null) this.resetForm();
     else {
+      this.typeMiseAJour = "Modifier";
       this.service.getPublicationByID(parseInt(PublicationID)).then((res) => {
         this.service.formData = res;
       });
